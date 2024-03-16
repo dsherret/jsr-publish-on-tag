@@ -1,0 +1,27 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@std/semver@^0.219.1": "jsr:@std/semver@0.219.1",
+      "npm:jsonc-parser@^3.2.1": "npm:jsonc-parser@3.2.1"
+    },
+    "jsr": {
+      "@std/semver@0.219.1": {
+        "integrity": "1640e3368144090857ded3e944aa8743806bea712d5122c9fee2e9eb23c81607"
+      }
+    },
+    "npm": {
+      "jsonc-parser@3.2.1": {
+        "integrity": "sha512-AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/semver@^0.219.1",
+      "npm:jsonc-parser@^3.2.1"
+    ]
+  }
+}
