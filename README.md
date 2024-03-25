@@ -24,8 +24,9 @@ Currently only works on GHA (PRs welcome for other CIs).
 
    ```yml
    - name: Publish on tag
-     # replace with pinned version of this package
+     # replace x.x.x with pinned version of this package
      run: deno run -A jsr:@david/publish-on-tag@x.x.x
+
      # or forward additional arguments to `deno publish`
      # run: deno run -A jsr:@david/publish-on-tag@x.x.x --allow-slow-types
    ```
@@ -37,5 +38,5 @@ Currently only works on GHA (PRs welcome for other CIs).
    - Alternatively, tag your repo with a version and push the changes.
      - ex. `git tag 0.1.0 && git push 0.1.0`
    - Note: The tag may have a leading `v` prefix.
-   - This will kick off the workflow run that will update the deno.json before
-     publish.
+   - This will kick off the workflow run that will publish with the tagged
+     version.
