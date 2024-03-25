@@ -5,12 +5,12 @@ on: [push, pull_request]
 jobs:
   deno:
     name: publish-on-tag
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Install deno
         uses: denoland/setup-deno@v1
-        runs-on: ubuntu-latest
         with:
           deno-version: v1.x
 
