@@ -1,13 +1,14 @@
 # `@david/publish-on-tag`
 
-Publishes a package to JSR with a version based on the current tag.
+Publishes a package to JSR with a version based on the current git tag.
 
 This enables you to not have to store a version number in git and instead rely
-on tags for publishing. Additionally, it's a single line to add to your workflow file.
+on tags for publishing. The usage is a single line to add to your GHA workflow
+file.
 
 ## Usage
 
-Currently only works on GHA.
+Currently only works on GHA (PRs welcome for other CIs).
 
 1. Update your deno.json(c)/jsr.json(c) to have a zeroed out version:
 
@@ -29,7 +30,8 @@ Currently only works on GHA.
      # run: deno run -A jsr:@david/publish-on-tag@x.x.x --allow-slow-types
    ```
 
-   For an example, see the [ci.yml](./.github/workflows/ci.yml) file in this repository.
+   For an example, see the [ci.yml](./.github/workflows/ci.yml) file in this
+   repository.
 
 1. Draft a new release on GitHub and publish the release with a tag.
    - Alternatively, tag your repo with a version and push the changes.

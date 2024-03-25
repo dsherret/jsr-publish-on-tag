@@ -10,6 +10,7 @@ jobs:
 
       - name: Install deno
         uses: denoland/setup-deno@v1
+        runs-on: ubuntu-latest
         with:
           deno-version: v1.x
 
