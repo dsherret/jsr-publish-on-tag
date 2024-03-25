@@ -1,9 +1,10 @@
 {
-  "name": "@david/jsr-gha-publish-on-tag",
+  "name": "@david/publish-on-tag",
   "version": "0.0.0",
   "exports": "./main.ts",
   "imports": {
-    "@std/semver": "jsr:@std/semver@^0.219.1",
-    "jsonc-parser": "npm:jsonc-parser@^3.2.1"
+    "@std/assert": "jsr:@std/assert@0.220.1",
+    "@std/semver": "jsr:@std/semver@0.219.1",
+    "jsonc-parser": "npm:jsonc-parser@3.2.1"
   }
 }

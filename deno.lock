@@ -2,15 +2,31 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@std/semver@^0.219.1": "jsr:@std/semver@0.219.1",
-      "npm:jsonc-parser@^3.2.1": "npm:jsonc-parser@3.2.1"
+      "jsr:@std/assert@0.220.1": "jsr:@std/assert@0.220.1",
+      "jsr:@std/fmt@^0.220.1": "jsr:@std/fmt@0.220.1",
+      "jsr:@std/semver@0.219.1": "jsr:@std/semver@0.219.1",
+      "npm:@types/node": "npm:@types/node@18.16.19",
+      "npm:jsonc-parser@3.2.1": "npm:jsonc-parser@3.2.1"
     },
     "jsr": {
+      "@std/assert@0.220.1": {
+        "integrity": "88710d54f3afdd7a5761e7805abba1f56cd14e4b212feffeb3e73a9f77482425",
+        "dependencies": [
+          "jsr:@std/fmt@^0.220.1"
+        ]
+      },
+      "@std/fmt@0.220.1": {
+        "integrity": "3b1a698477a26b1dacbbee26db1a65030a005c6d71db3b3a0e59f8a638f04d7a"
+      },
       "@std/semver@0.219.1": {
         "integrity": "1640e3368144090857ded3e944aa8743806bea712d5122c9fee2e9eb23c81607"
       }
     },
     "npm": {
+      "@types/node@18.16.19": {
+        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
+        "dependencies": {}
+      },
       "jsonc-parser@3.2.1": {
         "integrity": "sha512-AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==",
         "dependencies": {}
@@ -20,8 +36,9 @@
   "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@std/semver@^0.219.1",
-      "npm:jsonc-parser@^3.2.1"
+      "jsr:@std/assert@0.220.1",
+      "jsr:@std/semver@0.219.1",
+      "npm:jsonc-parser@3.2.1"
     ]
   }
 }
