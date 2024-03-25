@@ -27,4 +27,4 @@ jobs:
         # note: if you're copying this, replace main.ts with
         # jsr:@david/publish-on-tag@x.x.x but replace x.x.x
         # with the pinned version of this package
-        run: deno run -A main.ts
+        run: deno run -A src/main.ts
