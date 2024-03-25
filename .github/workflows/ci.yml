@@ -6,7 +6,7 @@ jobs:
   deno:
     name: publish-on-tag
     steps:
-       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install deno
         uses: denoland/setup-deno@v1
