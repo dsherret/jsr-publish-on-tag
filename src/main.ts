@@ -1,12 +1,3 @@
-/**
- * Publishes a package to JSR with a version based on the current tag.
- *
- * ```sh
- * deno run -A jsr:@david/publish-on-tag@x.x.x
- * ```
- *
- * @module
- */
 import cp from "node:child_process";
 import fs from "node:fs";
 import process from "node:process";
