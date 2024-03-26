@@ -35,6 +35,18 @@ Currently only works on GHA (PRs welcome for other CIs).
    For an example, see the [ci.yml](./.github/workflows/ci.yml) file in this
    repository.
 
+1. Ensure your workflow has sufficient permissions to publish (see
+   [JSR's publishing instructions](https://jsr.io/docs/publishing-packages#publishing-from-github-actions)):
+
+   ```yml
+   permissions:
+     contents: read
+     id-token: write
+   ```
+
+1. On [jsr.io](https://jsr.io/), link your package to your GitHub repo in your
+   package's publish settings.
+
 1. Draft a new release on GitHub and publish the release with a tag.
    - Alternatively, tag your repo with a version and push the changes.
      - ex. `git tag 0.1.0 && git push 0.1.0`
