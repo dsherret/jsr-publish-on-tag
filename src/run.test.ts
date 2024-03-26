@@ -17,13 +17,7 @@ Deno.test("should work with different config file names", async (t) => {
         args: ["Setting version to 1.2.3 in " + fileName],
       }, {
         kind: "spawn",
-        command: ["git", "add", fileName],
-      }, {
-        kind: "spawn",
-        command: ["git", "commit", "-m", "1.2.3"],
-      }, {
-        kind: "spawn",
-        command: ["deno", "publish"],
+        command: ["deno", "publish", "--allow-dirty"],
       }]);
       assertEquals(files, {
         [fileName]: `{
@@ -49,13 +43,7 @@ Deno.test("should provide custom commands and use `npx jsr` when in Node", () =>
     args: ["Setting version to 1.2.3 in deno.json"],
   }, {
     kind: "spawn",
-    command: ["git", "add", "deno.json"],
-  }, {
-    kind: "spawn",
-    command: ["git", "commit", "-m", "1.2.3"],
-  }, {
-    kind: "spawn",
-    command: ["npx", "jsr", "publish", "--dry-run"],
+    command: ["npx", "jsr", "publish", "--allow-dirty", "--dry-run"],
   }]);
   assertEquals(files, {
     "deno.json": `{
@@ -98,7 +86,10 @@ Deno.test("should exit no tag", () => {
   runTest({ files, actions, env: {} });
   assertEquals(actions, [{
     kind: "log",
-    args: ["No tag found."],
+    args: ["No tag found. Running dry publish..."],
+  }, {
+    kind: "spawn",
+    command: ["deno", "publish", "--dry-run"],
   }]);
   assertEquals(files, {
     "deno.json": `{

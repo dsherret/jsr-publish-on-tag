@@ -1,6 +1,7 @@
 # `@david/publish-on-tag`
 
-Publishes a package to JSR with a version based on the current git tag.
+Publishes a package to JSR with a version based on the current git tag or
+otherwise runs a dry publish.
 
 This enables you to not have to store a version number in git and instead rely
 on tags for publishing. The usage is a single line to add to your GHA workflow

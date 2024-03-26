@@ -17,7 +17,8 @@ export function run(context: {
 }) {
   const tagName = getTagName();
   if (tagName == null) {
-    context.log("No tag found.");
+    context.log("No tag found. Running dry publish...");
+    runDenoPublishWithArgs(["--dry-run", ...context.args]);
     return;
   }
 
@@ -36,13 +37,20 @@ export function run(context: {
   }
 
   // now publish
-  const publishArgs = ["publish", ...context.args];
-  if (context.userAgent.startsWith("Deno/")) {
-    publishArgs.splice(0, 0, "deno");
-  } else {
-    publishArgs.splice(0, 0, "npx", "jsr");
+  const publishArgs = context.args.includes("--allow-dirty")
+    ? context.args
+    : ["--allow-dirty", ...context.args];
+  runDenoPublishWithArgs(publishArgs);
+
+  function runDenoPublishWithArgs(args: string[]) {
+    const publishArgs = ["publish", ...args];
+    if (context.userAgent.startsWith("Deno/")) {
+      publishArgs.splice(0, 0, "deno");
+    } else {
+      publishArgs.splice(0, 0, "npx", "jsr");
+    }
+    context.spawn(publishArgs[0], publishArgs.slice(1));
   }
-  context.spawn(publishArgs[0], publishArgs.slice(1));
 
   function getTagName() {
     const githubRef = context.env.GITHUB_REF;
@@ -71,9 +79,5 @@ export function run(context: {
     const edits = jsonc.modify(file, ["version"], version, {});
     const newText = jsonc.applyEdits(file, edits);
     context.writeFile(fileName, newText);
-
-    // prevent needing to provide --allow-dirty and still error for other changes
-    context.spawn("git", ["add", fileName]);
-    context.spawn("git", ["commit", "-m", versionStr]);
   }
 }
