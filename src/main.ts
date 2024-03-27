@@ -19,7 +19,10 @@ run({
   },
   spawn(command, args) {
     console.error(`$ ${command} ${args.join(" ")}`);
-    cp.spawnSync(command, args, { stdio: "inherit" });
+    const result = cp.spawnSync(command, args, { stdio: "inherit" });
+    if (result.status != null && result.status != 0) {
+      process.exit(result.status);
+    }
   },
   userAgent: navigator.userAgent,
 });
