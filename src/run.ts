@@ -17,7 +17,12 @@ export function run(context: {
   const tagName = getTagName();
   if (tagName == null) {
     context.log("No tag found. Running dry publish...");
-    runDenoPublishWithArgs(["--set-version", "0.0.0", "--dry-run", ...context.args]);
+    runDenoPublishWithArgs([
+      "--set-version",
+      "0.0.0",
+      "--dry-run",
+      ...context.args,
+    ]);
     return;
   }
 
