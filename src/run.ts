@@ -1,4 +1,3 @@
-import * as jsonc from "jsonc-parser";
 import * as semver from "@std/semver";
 
 /**
@@ -18,7 +17,12 @@ export function run(context: {
   const tagName = getTagName();
   if (tagName == null) {
     context.log("No tag found. Running dry publish...");
-    runDenoPublishWithArgs(["--dry-run", ...context.args]);
+    runDenoPublishWithArgs([
+      "--set-version",
+      "0.0.0",
+      "--dry-run",
+      ...context.args,
+    ]);
     return;
   }
 
@@ -28,19 +32,8 @@ export function run(context: {
     return;
   }
 
-  // todo: use https://github.com/denoland/deno/issues/22663 once landed
-  // in deno in order to specify the version via a cli flag
-  if (!trySetInConfigFile(versionStr)) {
-    context.log("No deno.json(c) or jsr.json(c) found.");
-    context.exit(2);
-    return;
-  }
-
   // now publish
-  const publishArgs = context.args.includes("--allow-dirty")
-    ? context.args
-    : ["--allow-dirty", ...context.args];
-  runDenoPublishWithArgs(publishArgs);
+  runDenoPublishWithArgs(["--set-version", versionStr, ...context.args]);
 
   function runDenoPublishWithArgs(args: string[]) {
     const publishArgs = ["publish", ...args];
@@ -59,25 +52,5 @@ export function run(context: {
     } else {
       return undefined;
     }
-  }
-
-  function trySetInConfigFile(version: string) {
-    for (
-      const fileName of ["deno.json", "deno.jsonc", "jsr.json", "jsr.jsonc"]
-    ) {
-      if (context.fileExists(fileName)) {
-        setVersionInConfig(fileName, version);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function setVersionInConfig(fileName: string, version: string) {
-    context.log(`Setting version to ${version} in ${fileName}`);
-    const file = context.readFile(fileName);
-    const edits = jsonc.modify(file, ["version"], version, {});
-    const newText = jsonc.applyEdits(file, edits);
-    context.writeFile(fileName, newText);
   }
 }
