@@ -60,7 +60,7 @@ Deno.test("should exit no tag", () => {
     args: ["No tag found. Running dry publish..."],
   }, {
     kind: "spawn",
-    command: ["deno", "publish", "--dry-run"],
+    command: ["deno", "publish", "--set-version", "0.0.0", "--dry-run"],
   }]);
   assertEquals(files, {
     "deno.json": `{
