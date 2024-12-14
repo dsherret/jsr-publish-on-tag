@@ -11,12 +11,11 @@ file.
 
 Currently only works on GHA (PRs welcome for other CIs).
 
-1. Update your deno.json(c)/jsr.json(c) to have a zeroed out version:
+1. Update your deno.json(c)/jsr.json(c) to not have a version field:
 
    ```json
    {
      "name": "@scope/pkg",
-     "version": "0.0.0",
      "exports": "./mod.ts"
    }
    ```

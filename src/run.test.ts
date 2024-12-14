@@ -1,5 +1,5 @@
 import { run } from "./run.ts";
-import { assertEquals } from "@std/assert/assert_equals";
+import { assertEquals } from "@std/assert/equals";
 
 Deno.test("should work with different config file names", async (t) => {
   for (const fileName of ["deno.json", "deno.jsonc", "jsr.json", "jsr.jsonc"]) {
@@ -13,16 +13,14 @@ Deno.test("should work with different config file names", async (t) => {
       };
       runTest({ files, actions });
       assertEquals(actions, [{
-        kind: "log",
-        args: ["Setting version to 1.2.3 in " + fileName],
-      }, {
         kind: "spawn",
-        command: ["deno", "publish", "--allow-dirty"],
+        command: ["deno", "publish", "--set-version", "1.2.3"],
       }]);
       assertEquals(files, {
+        // doesn't change because the version is set on the command line
         [fileName]: `{
   "name": "@scope/pkg",
-  "version": "1.2.3"
+  "version": "1.2.2"
 }`,
       });
     });
@@ -33,46 +31,19 @@ Deno.test("should provide custom commands and use `npx jsr` when in Node", () =>
   const actions: unknown[] = [];
   const files: Record<string, string> = {
     "deno.json": `{
-  "name": "@scope/pkg",
-  "version": "1.2.2"
+  "name": "@scope/pkg"
 }`,
   };
   runTest({ files, actions, userAgent: "Node.js/21", args: ["--dry-run"] });
   assertEquals(actions, [{
-    kind: "log",
-    args: ["Setting version to 1.2.3 in deno.json"],
-  }, {
     kind: "spawn",
-    command: ["npx", "jsr", "publish", "--allow-dirty", "--dry-run"],
+    command: ["npx", "jsr", "publish", "--set-version", "1.2.3", "--dry-run"],
   }]);
   assertEquals(files, {
     "deno.json": `{
-  "name": "@scope/pkg",
-  "version": "1.2.3"
+  "name": "@scope/pkg"
 }`,
   });
-});
-
-Deno.test("should fail on no config file", () => {
-  const actions: unknown[] = [];
-  const files: Record<string, string> = {};
-  runTest({
-    files,
-    actions,
-    userAgent: "Node.js/21",
-    args: ["--dry-run"],
-    env: {
-      "GITHUB_REF": "refs/tags/1.2.3", // no v prefix
-    },
-  });
-  assertEquals(actions, [{
-    kind: "log",
-    args: ["No deno.json(c) or jsr.json(c) found."],
-  }, {
-    kind: "exit",
-    code: 2,
-  }]);
-  assertEquals(files, {});
 });
 
 Deno.test("should exit no tag", () => {
