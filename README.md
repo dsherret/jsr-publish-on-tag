@@ -20,15 +20,17 @@ Currently only works on GHA (PRs welcome for other CIs).
    }
    ```
 
+1. Run `deno install jsr:@david/publish-on-tag` to place this in your deno.json so it gets added to your lockfile.
+
 1. Update your GHA to run this package instead of `deno publish`:
 
    ```yml
    - name: Publish on tag
      # replace x.x.x with pinned version of this package
-     run: deno run -A jsr:@david/publish-on-tag@x.x.x
+     run: deno run -A @david/publish-on-tag
 
      # or forward additional arguments to `deno publish`
-     # run: deno run -A jsr:@david/publish-on-tag@x.x.x --allow-slow-types
+     # run: deno run -A @david/publish-on-tag --allow-slow-types
    ```
 
    For an example, see the [ci.yml](./.github/workflows/ci.yml) file in this
