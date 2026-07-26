@@ -20,7 +20,8 @@ Currently only works on GHA (PRs welcome for other CIs).
    }
    ```
 
-1. Run `deno install jsr:@david/publish-on-tag` to place this in your deno.json so it gets added to your lockfile.
+1. Run `deno install jsr:@david/publish-on-tag` to place this in your deno.json
+   so it gets added to your lockfile.
 
 1. Update your GHA to run this package instead of `deno publish`:
 
